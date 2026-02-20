@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are You a Digital Humanist?</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: radial-gradient(circle at top, #0f2027, #1b1b2f, #000);
+    color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+/* Animated floating text effect */
+body::before {
+    content: "ARCHIVE  DATA  NARRATIVE  CODE  MEMORY  FUTURE  HUMANITY  ETHICS";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    font-size: 120px;
+    opacity: 0.03;
+    white-space: nowrap;
+    animation: scrollText 40s linear infinite;
+}
+
+@keyframes scrollText {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 30px;
+    background: rgba(20, 20, 40, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 0 25px #00ffff66;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff88;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    background: transparent;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00ffff;
+    color: #000;
+    box-shadow: 0 0 15px #00ffff;
+}
+
+.option {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #00ffff22;
+    border-color: #00ffff;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+    <h1>Are You a Digital Humanist?</h1>
+    <p>Step into the future where literature meets code.</p>
+    <p>Discover your intellectual archetype.</p>
+    <button onclick="startQuiz()">Start Game</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+</div>
+
+<div class="container hidden" id="resultScreen">
+    <h1>Your Result</h1>
+    <h2 id="resultTitle"></h2>
+    <p id="resultDescription"></p>
+    <button onclick="restartQuiz()">Restart</button>
+</div>
+
+<script>
+const questions = [
+{
+question: "You discover a 100-year-old diary. What excites you most?",
+options: [
+{text:"Preserving it digitally", type:"A"},
+{text:"Analyzing language patterns", type:"B"},
+{text:"Turning it into interactive story", type:"C"},
+{text:"Questioning whose voices are missing", type:"D"}
+]
+},
+{
+question: "When using social media, you think about:",
+options: [
+{text:"Capturing memories", type:"A"},
+{text:"How algorithms work", type:"B"},
+{text:"Creative expression", type:"C"},
+{text:"Data privacy issues", type:"D"}
+]
+},
+{
+question: "Technology should primarily:",
+options: [
+{text:"Preserve culture", type:"A"},
+{text:"Reveal hidden patterns", type:"B"},
+{text:"Expand storytelling", type:"C"},
+{text:"Challenge inequality", type:"D"}
+]
+},
+{
+question: "If you built a website, it would focus on:",
+options: [
+{text:"Archives", type:"A"},
+{text:"Data dashboards", type:"B"},
+{text:"Interactive art", type:"C"},
+{text:"Ethics discussions", type:"D"}
+]
+},
+{
+question: "Artificial intelligence fascinates you because:",
+options: [
+{text:"It preserves knowledge", type:"A"},
+{text:"It runs on logic", type:"B"},
+{text:"It can create art", type:"C"},
+{text:"It raises ethical questions", type:"D"}
+]
+},
+{
+question: "In group work you usually:",
+options: [
+{text:"Organize everything", type:"A"},
+{text:"Handle technical work", type:"B"},
+{text:"Design creative aspects", type:"C"},
+{text:"Ask critical questions", type:"D"}
+]
+},
+{
+question: "Reading a novel, you focus on:",
+options: [
+{text:"Historical context", type:"A"},
+{text:"Structure & patterns", type:"B"},
+{text:"Character arcs", type:"C"},
+{text:"Ideology & representation", type:"D"}
+]
+},
+{
+question: "A viral trend appears. You think:",
+options: [
+{text:"This is digital history", type:"A"},
+{text:"How did it spread?", type:"B"},
+{text:"Creative genius!", type:"C"},
+{text:"Who benefits from this?", type:"D"}
+]
+},
+{
+question: "Digital Humanities is:",
+options: [
+{text:"Memory + Tech", type:"A"},
+{text:"Data + Insight", type:"B"},
+{text:"Story + Innovation", type:"C"},
+{text:"Tech + Critique", type:"D"}
+]
+},
+{
+question: "In a futuristic city ruled by tech:",
+options: [
+{text:"I explore hidden archives", type:"A"},
+{text:"I study system mechanics", type:"B"},
+{text:"I follow branching stories", type:"C"},
+{text:"I examine power structures", type:"D"}
+]
+},
+{
+question: "In a survival adventure game:",
+options: [
+{text:"Document the world", type:"A"},
+{text:"Optimize strategy", type:"B"},
+{text:"Experience emotions", type:"C"},
+{text:"Understand political conflict", type:"D"}
+]
+},
+{
+question: "In a sci-fi series you notice:",
+options: [
+{text:"Cultural preservation", type:"A"},
+{text:"Tech realism", type:"B"},
+{text:"Relationships", type:"C"},
+{text:"Social critique", type:"D"}
+]
+},
+{
+question: "If given research funding you would:",
+options: [
+{text:"Digitize traditions", type:"A"},
+{text:"Build big datasets", type:"B"},
+{text:"Create immersive narrative", type:"C"},
+{text:"Study AI bias", type:"D"}
+]
+}
+];
+
+let currentQuestion = 0;
+let scores = {A:0,B:0,C:0,D:0};
+
+function startQuiz(){
+document.getElementById("startScreen").classList.add("hidden");
+document.getElementById("quizScreen").classList.remove("hidden");
+showQuestion();
+}
+
+function showQuestion(){
+const q = questions[currentQuestion];
+document.getElementById("question").innerText = q.question;
+const optionsDiv = document.getElementById("options");
+optionsDiv.innerHTML = "";
+q.options.forEach(option=>{
+const btn = document.createElement("div");
+btn.classList.add("option");
+btn.innerText = option.text;
+btn.onclick = ()=>{
+scores[option.type]++;
+currentQuestion++;
+if(currentQuestion < questions.length){
+showQuestion();
+} else {
+showResult();
+}
+};
+optionsDiv.appendChild(btn);
+});
+}
+
+function showResult(){
+document.getElementById("quizScreen").classList.add("hidden");
+document.getElementById("resultScreen").classList.remove("hidden");
+
+let maxType = Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+
+const results = {
+A:{title:"The Digital Archivist", desc:"You preserve memory and culture in the digital age."},
+B:{title:"The Data Humanist", desc:"You decode patterns and uncover meaning in data."},
+C:{title:"The Narrative Innovator", desc:"You blend storytelling with technology."},
+D:{title:"The Critical Technologist", desc:"You question power, bias, and digital systems."}
+};
+
+document.getElementById("resultTitle").innerText = results[maxType].title;
+document.getElementById("resultDescription").innerText = results[maxType].desc;
+}
+
+function restartQuiz(){
+currentQuestion = 0;
+scores = {A:0,B:0,C:0,D:0};
+document.getElementById("resultScreen").classList.add("hidden");
+document.getElementById("startScreen").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
